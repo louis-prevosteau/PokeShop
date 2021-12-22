@@ -3,14 +3,16 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
      * @ORM\Id
@@ -20,150 +22,104 @@ class User
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=180, unique=true)
      */
-    private $LastName;
+    private $email;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="json")
      */
-    private $FirstName;
+    private $roles = [];
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string The hashed password
+     * @ORM\Column(type="string")
      */
-    private $Mail;
+    private $password;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="boolean")
      */
-    private $Password;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Donation::class, mappedBy="userId")
-     */
-    private $donations;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Contract::class, mappedBy="UserId")
-     */
-    private $contracts;
-
-    public function __construct()
-    {
-        $this->donations = new ArrayCollection();
-        $this->contracts = new ArrayCollection();
-    }
+    private $isVerified = false;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getLastName(): ?string
+    public function getEmail(): ?string
     {
-        return $this->LastName;
+        return $this->email;
     }
 
-    public function setLastName(string $LastName): self
+    public function setEmail(string $email): self
     {
-        $this->LastName = $LastName;
-
-        return $this;
-    }
-
-    public function getFirstName(): ?string
-    {
-        return $this->FirstName;
-    }
-
-    public function setFirstName(string $FirstName): self
-    {
-        $this->FirstName = $FirstName;
-
-        return $this;
-    }
-
-    public function getMail(): ?string
-    {
-        return $this->Mail;
-    }
-
-    public function setMail(string $Mail): self
-    {
-        $this->Mail = $Mail;
-
-        return $this;
-    }
-
-    public function getPassword(): ?string
-    {
-        return $this->Password;
-    }
-
-    public function setPassword(string $Password): self
-    {
-        $this->Password = $Password;
+        $this->email = $email;
 
         return $this;
     }
 
     /**
-     * @return Collection|Donation[]
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
      */
-    public function getDonations(): Collection
+    public function getUserIdentifier(): string
     {
-        return $this->donations;
+        return (string) $this->email;
     }
 
-    public function addDonation(Donation $donation): self
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
     {
-        if (!$this->donations->contains($donation)) {
-            $this->donations[] = $donation;
-            $donation->setUserId($this);
-        }
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
 
-        return $this;
+        return array_unique($roles);
     }
 
-    public function removeDonation(Donation $donation): self
+    public function setRoles(array $roles): self
     {
-        if ($this->donations->removeElement($donation)) {
-            // set the owning side to null (unless already changed)
-            if ($donation->getUserId() === $this) {
-                $donation->setUserId(null);
-            }
-        }
+        $this->roles = $roles;
 
         return $this;
     }
 
     /**
-     * @return Collection|Contract[]
+     * @see PasswordAuthenticatedUserInterface
      */
-    public function getContracts(): Collection
+    public function getPassword(): string
     {
-        return $this->contracts;
+        return $this->password;
     }
 
-    public function addContract(Contract $contract): self
+    public function setPassword(string $password): self
     {
-        if (!$this->contracts->contains($contract)) {
-            $this->contracts[] = $contract;
-            $contract->setUserId($this);
-        }
+        $this->password = $password;
 
         return $this;
     }
 
-    public function removeContract(Contract $contract): self
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
     {
-        if ($this->contracts->removeElement($contract)) {
-            // set the owning side to null (unless already changed)
-            if ($contract->getUserId() === $this) {
-                $contract->setUserId(null);
-            }
-        }
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }

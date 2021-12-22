@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e27f9d63f53a45876ce36f093e35153c",
+    "content-hash": "47fd35a22929fc7535e77671cd8514b6",
     "packages": [
         {
             "name": "composer/package-versions-deprecated",
@@ -21,7 +21,7 @@
                 "shasum": ""
             },
             "require": {
-                "composer-plugin-api": "^1.1.0 || ^2.0",
+                "composer-plugin-api": "^1.1.0 || ^2.0 || 2.1",
                 "php": "^7 || ^8"
             },
             "replace": {
@@ -1203,16 +1203,16 @@
         },
         {
             "name": "doctrine/orm",
-            "version": "2.10.3",
+            "version": "2.10.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/orm.git",
-                "reference": "7b242753466508e1dd10f67c1baee95785f845c1"
+                "reference": "cccb2e2fdfed2969afb3d65c5ea82bafdefbe1a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/orm/zipball/7b242753466508e1dd10f67c1baee95785f845c1",
-                "reference": "7b242753466508e1dd10f67c1baee95785f845c1",
+                "url": "https://api.github.com/repos/doctrine/orm/zipball/cccb2e2fdfed2969afb3d65c5ea82bafdefbe1a7",
+                "reference": "cccb2e2fdfed2969afb3d65c5ea82bafdefbe1a7",
                 "shasum": ""
             },
             "require": {
@@ -1244,10 +1244,10 @@
                 "phpbench/phpbench": "^0.16.10 || ^1.0",
                 "phpstan/phpstan": "1.2.0",
                 "phpunit/phpunit": "^7.5 || ^8.5 || ^9.4",
-                "squizlabs/php_codesniffer": "3.6.1",
+                "squizlabs/php_codesniffer": "3.6.2",
                 "symfony/cache": "^4.4 || ^5.2",
                 "symfony/yaml": "^3.4 || ^4.0 || ^5.0 || ^6.0",
-                "vimeo/psalm": "4.13.1"
+                "vimeo/psalm": "4.15.0"
             },
             "suggest": {
                 "symfony/cache": "Provides cache support for Setup Tool with doctrine/cache 2.0",
@@ -1296,9 +1296,9 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/orm/issues",
-                "source": "https://github.com/doctrine/orm/tree/2.10.3"
+                "source": "https://github.com/doctrine/orm/tree/2.10.4"
             },
-            "time": "2021-12-03T12:27:05+00:00"
+            "time": "2021-12-20T21:23:47+00:00"
         },
         {
             "name": "doctrine/persistence",
@@ -7188,6 +7188,55 @@
                 }
             ],
             "time": "2021-12-08T15:13:44+00:00"
+        },
+        {
+            "name": "symfonycasts/verify-email-bundle",
+            "version": "v1.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SymfonyCasts/verify-email-bundle.git",
+                "reference": "7b17b150c39d115141cb462862baac9c281a3de9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SymfonyCasts/verify-email-bundle/zipball/7b17b150c39d115141cb462862baac9c281a3de9",
+                "reference": "7b17b150c39d115141cb462862baac9c281a3de9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.5",
+                "symfony/config": "^4.4 | ^5.0 | ^6.0",
+                "symfony/dependency-injection": "^4.4 | ^5.0 | ^6.0",
+                "symfony/deprecation-contracts": "^2.2 | ^3.0",
+                "symfony/http-kernel": "^4.4 | ^5.0 | ^6.0",
+                "symfony/routing": "^4.4 | ^5.0 | ^6.0"
+            },
+            "conflict": {
+                "symfony/framework-bundle": "<4.4"
+            },
+            "require-dev": {
+                "doctrine/orm": "^2.7",
+                "doctrine/persistence": "^2.0",
+                "symfony/framework-bundle": "^4.4 | ^5.0 | ^6.0",
+                "symfony/phpunit-bridge": "^5.0 | ^6.0",
+                "vimeo/psalm": "^4.3"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "SymfonyCasts\\Bundle\\VerifyEmail\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Simple, stylish Email Verification for Symfony",
+            "support": {
+                "issues": "https://github.com/SymfonyCasts/verify-email-bundle/issues",
+                "source": "https://github.com/SymfonyCasts/verify-email-bundle/tree/v1.7.0"
+            },
+            "time": "2021-11-30T17:26:37+00:00"
         },
         {
             "name": "twig/extra-bundle",
