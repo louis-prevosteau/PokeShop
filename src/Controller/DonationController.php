@@ -27,19 +27,19 @@ class DonationController extends AbstractController
         ]);
     }
 
-    #[Route('/donation/create', name: 'create', methods: 'POST, GET')]
+    #[Route('/donation/create', name: 'create_donation', methods: ['POST', 'GET'])]
     public function create(Request $request, ManagerRegistry $mr)
     {
         $donation = new Donation;
         $form = $this->createForm(DonationType::class, $donation);
         $form->handleRequest($request);
-        if ($form->isValid() && $form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $donation->setDateOfDonation(new \DateTime());
             $em = $mr->getManager();
             $em->persist($donation);
             $em->flush();
             $this->addFlash('success', 'Don enregisqtré');
-            return $this->redirectToRoute('/donation');
+            return $this->redirectToRoute('donation');
         }
         return $this->render('donation/create.html.twig', array('form' => $form->createView()));
     }

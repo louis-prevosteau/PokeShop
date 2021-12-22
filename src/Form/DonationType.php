@@ -6,6 +6,7 @@ use App\Entity\Donation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class DonationType extends AbstractType
 {
@@ -14,6 +15,7 @@ class DonationType extends AbstractType
         $builder
             ->add('sum')
             ->add('dateOfDonation')
+            ->add('submit', SubmitType::class, ['label' => 'Faire un don'])
         ;
     }
 
