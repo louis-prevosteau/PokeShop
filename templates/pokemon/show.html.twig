@@ -1,0 +1,10 @@
+
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <h1>{{pokemon.Name}}</h1>
+    <img src="{{pokemon.Image}}"/>
+    <h2>Type : {{pokemon.Type}}</h2>
+    <p>{{pokemon.Description}}</p>
+    <h2>Prix : {{pokemon.Price}} €</h2>
+{% endblock %}
